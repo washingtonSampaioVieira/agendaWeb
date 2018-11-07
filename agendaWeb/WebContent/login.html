@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="css/bootstrap.css">
+<meta charset="ISO-8859-1">
+<title> Agenda - Login </title>
+</head>
+<body class="bg-dark">
+	<div class="container"> <!-- caixa maior -->
+		<div class="card mt-5 mx-auto" style="width: 500px;"> <!-- imagem -->
+			<img src="imagens/security.png">
+			<div class="card-header"> <!-- cabeçalho -->
+				<h1 class="card-title">Login</h1>
+				<h5 class="card-subtitle">Agenda Eletrônica</h5>
+			</div> 
+			<div class="card-body"> <!-- corpo  -->
+				<form action="AutenticaServlet" method="post"> <!-- tag para mandar o que foi preenchido no furmulário p/ o servidor -->
+					<div class="form-group">
+						<label for="email"> E-mail: </label> 
+						<input class="form-control" type="email" name="email" id="email">
+					</div>
+					<div class="form-group">
+						<label for="senha"> Senha: </label> 
+						<input class="form-control" type="password" name="senha" id="senha">
+					</div>
+					<button class="btn btn-primary btn-block" id="entrar"> Entrar no Sistema</button>
+				</form>
+				<div class="text-center">
+					<p class="mt-3"> Novo por aqui? <a href="novo-usuario.html"> Criar uma conta </a> </p>
+				</div>
+			</div>
+			<div class="card-footer"> <!-- rodapé -->
+				<p> Suporte, dúvidas ou sugestões ligue <span class="font-weight-bold">(11) 95555-5555</span> </p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
