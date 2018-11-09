@@ -6,6 +6,7 @@
     
     Usuario usuario = new Usuario();
     usuario = (Usuario) session.getAttribute("usuario");
+    
     if(usuario == null){
   		response.sendRedirect("login.html");  	
     }else{

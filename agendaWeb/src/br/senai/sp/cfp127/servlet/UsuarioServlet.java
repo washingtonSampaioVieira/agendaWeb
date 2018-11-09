@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.senai.sp.cfp127.dao.UsuarioDao;
 import br.senai.sp.cfp127.model.Usuario;
@@ -26,7 +27,7 @@ public class UsuarioServlet extends HttpServlet {
 		u.setEmail(request.getParameter("txt-email"));
 		u.setSenha(request.getParameter("txt-senha1"));
 		u.setDtNascimento(request.getParameter("txt-nascimento"));
-		u.setSexo(request.getParameter("txt-sexo"));
+		u.setSexo(request.getParameter("txt-sexo").substring(0, 1));
 		if (request.getParameter("txt-cod").length() > 0) {
 			u.setCod(Integer.parseInt(request.getParameter("txt-cod")));
 		}
@@ -42,10 +43,13 @@ public class UsuarioServlet extends HttpServlet {
 				response.sendRedirect("novo-usuario.html");
 			}
 		} else if (dao.atualizar()) {
+			HttpSession sessao = request.getSession();
+			sessao.setAttribute("usuario", u);
 			response.sendRedirect("index.jsp");
-		} else {
-			response.sendRedirect("editarUsuario.jsp");
-		}
+		} 
+		//else{
+		//response.sendRedirect("editarUsuario.jsp");
+//		}
 
 	}
 
