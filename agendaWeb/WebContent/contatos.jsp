@@ -12,11 +12,12 @@
 	ContatoDao dao = new ContatoDao();
 	ArrayList<Contato> contatos = new ArrayList<>();
 
-	contatos = dao.getContatos(usuario.getCod());
-
+	contatos = dao.getContatos( usuario.getCod() );
+	
 	if (usuario == null) {
 		response.sendRedirect("login.html");
 	} else {
+	
 %>
 
 
@@ -56,18 +57,27 @@
 			</div>
 			<div class="col-md-8">
 				<div class="card">
-					<div class="card-header bg-info text-white">
+					<div class="card-header bg-info text-white ">
 						<!-- cabeçalho -->
-						<h5>Bem-vindo</h5>
+						<div class="row">
+							<div class="col-md-9">
+								<h5>Meus contatos</h5>
+							</div>
+							<div class="col-md-3">
+								<a href="CriarContato.jsp" class="btn btn-success">Novo contato</a>
+							</div>
+						</div>
 					</div>
 
 					<div class="card-body">
-						<table class="table table-hover">
-							<thead>
+						<table class="table table-hover ">
+							<thead class="bg-secondary text-white">
 								<tr>
+									
 									<th scope="col">Cód.</th>
 									<th scope="col">Nome</th>
 									<th scope="col">Email</th>
+									<th scope="col">&nbsp</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -80,16 +90,26 @@
 
 
 								<tr>
-									<td scope="row"><%=c.getCodContato()%></td>
-									<td><%=c.getNome()%></td>
-									<td><%=c.getEmail()%></td>
+									<td scope="row"><%= c.getCodContato() %></td>
+									<td >
+										<a href="ExibirContatoServlet&cod_contato=<%=c.getCodContato()%>">
+											<%= c.getNome() %> 
+										</a>
+									</td>
+									<td><%= c.getEmail() %></td>
+									<td>
+										<a href="ExcluirContatoServlet.jsp&cod_contato=<%= c.getCodContato()%>">
+											<img src="imagens/lixeira.png">
+										</a>
+									</td>
+									
 								</tr>
 
 
 								<%
 									}
 								%>
-
+	
 
 							</tbody>
 						</table>

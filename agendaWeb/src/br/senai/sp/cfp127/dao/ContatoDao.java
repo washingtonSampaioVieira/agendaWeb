@@ -4,6 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import javax.swing.text.html.HTMLDocument.BlockElement;
+
 import br.senai.sp.cfp127.model.Contato;
 
 public class ContatoDao {
@@ -13,13 +15,13 @@ public class ContatoDao {
 	
 	public ArrayList<Contato> getContatos(int codUsuario){
 		ArrayList<Contato> contatos = new ArrayList<>();
-		contatos=null;
-		String sql= "SELECT * FROM tbl_contato WHERE cod_usuario=?";
+		
+		String sql= "SELECT * FROM tbl_contato "
+				+ "WHERE cod_usuario = ?";
 		try {
 			stm=Conexao.getConexao().prepareStatement(sql);
 			stm.setInt(1, codUsuario);
-			
-			rs = stm.executeQuery(sql);
+			rs = stm.executeQuery();
 			
 			while(rs.next()) {
 				this.contato = new Contato();
@@ -36,5 +38,66 @@ public class ContatoDao {
 		}
 		
 		return contatos ;
+	}
+	public boolean gravar (Contato c) {
+		String sql=" INSERT INTO tbl_contato (cod_usuario, nome, telefone, email, endereco) VALUES (?,?,?,?,?)";
+		try {
+			stm= Conexao.getConexao().prepareStatement(sql);
+			stm.setInt(1, c.getUsuario().getCod());
+			stm.setString(2, c.getNome());
+			stm.setString(3, c.getTelefone());
+			stm.setString(4, c.getEmail());
+			stm.setString(5, c.getEndereco() );
+			
+			stm.execute();
+			return true;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean atulizar(Contato c) {
+		String sql="INSERT INTO tbl_contato (nome, telefone, email, endereco) VALUES (?,?,?,?)";
+		
+		try{
+			stm=Conexao.getConexao().prepareStatement(sql);
+			stm.setString(1, c.getNome());
+			stm.setString(2, c.getTelefone());
+			stm.setString(3, c.getEmail());
+			stm.setString(4, c.getEndereco());
+			stm.execute();
+			
+			return true;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		
+	}
+	public Contato getContato(int codUsuario){
+			Contato c = new Contato();
+		
+		String sql= "SELECT * FROM tbl_contato "
+				+ "WHERE cod_usuario = ?";
+		try {
+			stm=Conexao.getConexao().prepareStatement(sql);
+			stm.setInt(1, codUsuario);
+			rs = stm.executeQuery();
+			
+			c.setNome(rs.getString("nome"));
+			c.setEmail(rs.getString("email"));
+			c.setEndereco(rs.getString("endereco"));
+			c.setTelefone(rs.getString("telefone"));
+
+
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return c ;
 	}
 }
