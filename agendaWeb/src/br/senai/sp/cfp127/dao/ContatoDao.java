@@ -59,7 +59,7 @@ public class ContatoDao {
 	}
 	
 	public boolean atulizar(Contato c) {
-		String sql="INSERT INTO tbl_contato (nome, telefone, email, endereco) VALUES (?,?,?,?)";
+		String sql="UPDATE tbl_contato SET nome=?, telefone=?, email=?, endereco=? WHERE cod_contato = ?";
 		
 		try{
 			stm=Conexao.getConexao().prepareStatement(sql);
@@ -67,6 +67,7 @@ public class ContatoDao {
 			stm.setString(2, c.getTelefone());
 			stm.setString(3, c.getEmail());
 			stm.setString(4, c.getEndereco());
+			stm.setInt(5, c.getCodContato());
 			stm.execute();
 			
 			return true;
@@ -77,21 +78,23 @@ public class ContatoDao {
 		
 		
 	}
-	public Contato getContato(int codUsuario){
-			Contato c = new Contato();
-		
+	public Contato getContato(int codContato){
+			
+		Contato c = new Contato();
 		String sql= "SELECT * FROM tbl_contato "
-				+ "WHERE cod_usuario = ?";
+				+ "WHERE cod_contato = ?";
 		try {
 			stm=Conexao.getConexao().prepareStatement(sql);
-			stm.setInt(1, codUsuario);
+			stm.setInt(1, codContato);
 			rs = stm.executeQuery();
-			
-			c.setNome(rs.getString("nome"));
-			c.setEmail(rs.getString("email"));
-			c.setEndereco(rs.getString("endereco"));
-			c.setTelefone(rs.getString("telefone"));
-
+			if(rs.next()) {
+				
+				c.setCodContato(rs.getInt("cod_contato"));
+				c.setNome(rs.getString("nome"));
+				c.setEmail(rs.getString("email"));
+				c.setEndereco(rs.getString("endereco"));
+				c.setTelefone(rs.getString("telefone"));
+			}
 
 			
 		}catch (Exception e) {

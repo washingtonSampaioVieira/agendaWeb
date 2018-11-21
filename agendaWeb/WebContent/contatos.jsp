@@ -92,7 +92,7 @@
 								<tr>
 									<td scope="row"><%= c.getCodContato() %></td>
 									<td >
-										<a href="ExibirContatoServlet&cod_contato=<%=c.getCodContato()%>">
+										<a href="ExibirContatoServlet?cod_contato=<%=c.getCodContato()%>">
 											<%= c.getNome() %> 
 										</a>
 									</td>

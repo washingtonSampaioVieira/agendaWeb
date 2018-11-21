@@ -22,12 +22,16 @@ public class ExibirContatoServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ContatoDao dao = new ContatoDao();
-		request.getAttribute("cod_usuario");
-		Contato contato = new Contato();
-		contato = dao.getContato(Integer.parseInt( (String) request.getAttribute("cod_usuario")));
+		int codContato = Integer.parseInt( request.getParameter("cod_contato"));
 		
-		HttpSession sessao = request.getSession();
-		sessao.setAttribute("contato", contato);
+		Contato contato = new Contato();
+		contato = dao.getContato (codContato );
+		
+		request.getSession().setAttribute("contato", contato);
+			
+		response.sendRedirect("exibirContato.jsp");
+	
+		
 		
 	}
 

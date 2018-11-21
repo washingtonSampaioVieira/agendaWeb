@@ -28,6 +28,7 @@ public class AtualizarContato extends HttpServlet {
 	
 		
 		Contato c = new Contato();
+		c.setCodContato(Integer.parseInt(request.getParameter("txt-cod")));
 		c.setEmail(request.getParameter("email"));
 		c.setEndereco(request.getParameter("endereco"));
 		c.setNome(request.getParameter("nome"));
