@@ -1,3 +1,4 @@
+<%@page import="br.senai.sp.cfp127.model.Compromisso"%>
 <%@page import="br.senai.sp.cfp127.model.Contato"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="br.senai.sp.cfp127.dao.ContatoDao"%>
@@ -8,11 +9,9 @@
 <%
 	Usuario usuario = new Usuario();
 	usuario = (Usuario) session.getAttribute("usuario");
-
-	ContatoDao dao = new ContatoDao();
-	ArrayList<Contato> contatos = new ArrayList<>();
-
-	contatos = dao.getContatos(usuario.getCod());
+	
+	Compromisso compromisso = new Compromisso();
+	compromisso= (Compromisso) session.getAttribute("compromisso");
 
 	if (usuario == null) {
 		response.sendRedirect("login.html");
@@ -25,7 +24,7 @@
 <head>
 <link rel="stylesheet" href="css/bootstrap.css">
 <meta charset="utf-8">
-<title>Novo usuário</title>
+<title>Compromissos</title>
 </head>
 <body class="bg-dark">
 	<div class="bg-info text-white">
@@ -60,11 +59,11 @@
 						<!-- cabeçalho -->
 						<div class="row">
 							<div class="col-md-9">
-								<h5>Meus contatos</h5>
+								<h5>Meus Compromissos</h5>
 							</div>
 							<div class="col-md-3">
 								<a href="CriarContato.jsp" class="btn btn-success">Novo
-									contato</a>
+									Compromisso</a>
 							</div>
 						</div>
 					</div>
@@ -74,9 +73,10 @@
 							<thead class="bg-secondary text-white">
 								<tr>
 
-									<th scope="col">Cód.</th>
-									<th scope="col">Nome</th>
-									<th scope="col">Email</th>
+									<th scope="col" >Cód.</th>
+									<th scope="col">Titulo</th>
+									<th scope="col">Data</th>
+									<th scope="col">Grau </th>
 									<th scope="col">&nbsp</th>
 								</tr>
 							</thead>
@@ -84,28 +84,30 @@
 
 
 								<%
-									for (Contato c : contatos) {
+									//for (Contato c : contatos) {
 								%>
 
 
 
 								<tr>
-									<td scope="row"><%=c.getCodContato()%></td>
-									<td><a
-										href="ExibirContatoServlet?cod_contato=<%=c.getCodContato()%>">
-											<%=c.getNome()%>
-									</a></td>
-									<td><%=c.getEmail()%></td>
-									<td><a
-										href="ExcluirContatoServlet?cod_contato=<%=c.getCodContato()%>">
-											<img src="imagens/lixeira.png">
-									</a></td>
+									<td scope="row"> <%= compromisso.getCod_compromisso()%> codigo do compromisso</td>
+									<td>
+											<%= compromisso.getTitulo()%>
+											titulo compromisso
+									</td>
+									<td>
+									<!-- <%= compromisso.getData()%> a <%= compromisso.getDataFim()%> -->
+									data começo e fim </td>
+									<td>
+											
+											<%= compromisso.getStatus()%>Grau de importancia
+									</td>
 
 								</tr>
 
 
 								<%
-									}
+								//	}
 								%>
 
 

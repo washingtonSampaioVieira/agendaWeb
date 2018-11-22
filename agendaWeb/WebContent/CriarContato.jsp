@@ -59,7 +59,7 @@
 						<div class="card">
 						
 						
-							<form id="usuario" action="CadastrarContatoServlet" method="post">
+							<form id="contato" action="CadastrarContatoServlet" method="post">
 								<div class="card-header"><h2>Cadastrar contato</h2></div>
 								<div class="card-body">
 
@@ -119,7 +119,7 @@
 									<!-- rodapé -->
 									<button class="btn btn-success" id="bt-criar">Salvar
 										Contato</button>
-									<a href="index.jsp" class="btn btn-dark"> Cancelar </a>
+									<a href="contatos.jsp" class="btn btn-dark"> Cancelar </a>
 								</div>
 							</form>
 						</div>
@@ -129,7 +129,7 @@
 		</div>
 
 	</div>
-	
+	<script src="js/validarContato.js"></script>
 </body>
 
 </html>

@@ -123,7 +123,7 @@
 									<!-- rodapé -->
 									<button class="btn btn-success" id="bt-atualizar">Salvar
 										Contato</button>
-									<a href="atualizarContato.jsp" class="btn btn-dark"> Cancelar </a>
+									<a href="contatos.jsp" class="btn btn-dark"> Cancelar </a>
 								</div>
 							</form>
 						</div>

@@ -64,7 +64,7 @@
 						<div class="card">
 
 
-							<form id="usuario" action="AtualizarContato" method="post">
+							<form id="contato" action="AtualizarContato" method="post">
 								<div class="card-header">
 									<h2>Atualizar contato</h2>
 								</div>
@@ -110,13 +110,13 @@
 											<!-- coluna 01 -->
 											<label for="txt-email"> Telefone: </label> <input
 												class="form-control" type="text" name="telefone"
-												id="telefone" value="<%= contato.getTelefone()%>">
+												id="telefone" value="<%=contato.getTelefone()%>">
 										</div>
 										<div class="col-md-7">
 											<!-- coluna 02 -->
 											<label for="txt-senha1"> Endereço: </label> <input
 												class="form-control" type="text" name="endereco"
-												id="endereco" value="<%= contato.getEndereco()%>">
+												id="endereco" value="<%=contato.getEndereco()%>">
 										</div>
 
 									</div>
@@ -136,6 +136,11 @@
 
 	</div>
 
+	
+
+
+
+	<script src="js/validarContato.js"></script>
 </body>
 
 </html>

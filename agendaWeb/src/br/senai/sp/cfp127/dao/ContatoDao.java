@@ -17,7 +17,7 @@ public class ContatoDao {
 		ArrayList<Contato> contatos = new ArrayList<>();
 		
 		String sql= "SELECT * FROM tbl_contato "
-				+ "WHERE cod_usuario = ?";
+				+ "WHERE cod_usuario = ? ORDER BY nome";
 		try {
 			stm=Conexao.getConexao().prepareStatement(sql);
 			stm.setInt(1, codUsuario);
@@ -56,6 +56,20 @@ public class ContatoDao {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	public boolean excluir (int cod_contato) {
+		String sql= "DELETE FROM tbl_contato WHERE cod_contato="+cod_contato;
+		
+		try{
+		stm = Conexao.getConexao().prepareStatement(sql);
+		stm.execute();
+		return true;	
+		}catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 	
 	public boolean atulizar(Contato c) {
