@@ -4,9 +4,10 @@ public class Compromisso {
 	private String titulo;
 	private String descricao;
 	private String data;
-	private String dataFim;
+	private String horaInicio;
+	private String horaFim;
 	private int cod_compromisso;
-	private int cod_usuario;
+	private Usuario usuario;
 	private int prioridade;
 	private int status;
 
@@ -34,12 +35,12 @@ public class Compromisso {
 		this.data = data;
 	}
 
-	public String getDataFim() {
-		return dataFim;
+	public String getHoraFim() {
+		return horaFim;
 	}
 
-	public void setDataFim(String dataFim) {
-		this.dataFim = dataFim;
+	public void setHoraFim(String dataFim) {
+		this.horaFim = dataFim;
 	}
 
 	public int getCod_compromisso() {
@@ -50,12 +51,18 @@ public class Compromisso {
 		this.cod_compromisso = cod_compromisso;
 	}
 
-	public int getCod_usuario() {
-		return cod_usuario;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setCod_usuario(int cod_usuario) {
-		this.cod_usuario = cod_usuario;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	public void setHoraInicio(String horaInicio) {
+		this.horaInicio = horaInicio;
+	}
+	public String getHoraInicio() {
+		return horaInicio;
 	}
 
 	public int getPrioridade() {

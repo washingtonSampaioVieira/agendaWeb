@@ -26,7 +26,7 @@ function validaContato(contato) {
     return erros;
 }
 
-alert(botao)
+
 
 botao.addEventListener('click', function(){
     var ul = document.querySelector("#mensagens-erro");

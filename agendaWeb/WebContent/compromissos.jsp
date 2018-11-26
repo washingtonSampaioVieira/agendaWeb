@@ -1,3 +1,4 @@
+<%@page import="br.senai.sp.cfp127.dao.CompromissoDao"%>
 <%@page import="br.senai.sp.cfp127.model.Compromisso"%>
 <%@page import="br.senai.sp.cfp127.model.Contato"%>
 <%@page import="java.util.ArrayList"%>
@@ -9,9 +10,12 @@
 <%
 	Usuario usuario = new Usuario();
 	usuario = (Usuario) session.getAttribute("usuario");
-	
-	Compromisso compromisso = new Compromisso();
-	compromisso= (Compromisso) session.getAttribute("compromisso");
+
+	ArrayList<Compromisso> compromissos = new ArrayList<>();
+	CompromissoDao compromissoDao = new CompromissoDao();
+	compromissos = compromissoDao.getCompromissos(usuario.getCod());
+
+	//compromisso = (Compromisso) session.getAttribute("compromisso");
 
 	if (usuario == null) {
 		response.sendRedirect("login.html");
@@ -62,21 +66,31 @@
 								<h5>Meus Compromissos</h5>
 							</div>
 							<div class="col-md-3">
-								<a href="CriarContato.jsp" class="btn btn-success">Novo
+								<a href="criarCompromisso.jsp" class="btn btn-success">Novo
 									Compromisso</a>
 							</div>
+	
 						</div>
 					</div>
 
 					<div class="card-body">
 						<table class="table table-hover ">
+						<form id="buscar" action="FiltroDeCompromissosServlet" method="post">
+							<select name="filtro">
+								<option value="0">Em andamento</option>
+								<option value="1">Cancelado</option>
+								<option value="2">Concluido</option>
+							</select>&nbsp
+							
+								<input type="button" value="buscar" name="btnFilto" id="btnFiltro">
+							</form>
 							<thead class="bg-secondary text-white">
 								<tr>
 
-									<th scope="col" >Cód.</th>
+									<th scope="col">Cód.</th>
 									<th scope="col">Titulo</th>
 									<th scope="col">Data</th>
-									<th scope="col">Grau </th>
+									<th scope="col">Grau</th>
 									<th scope="col">&nbsp</th>
 								</tr>
 							</thead>
@@ -84,30 +98,35 @@
 
 
 								<%
-									//for (Contato c : contatos) {
+									for (Compromisso compromissoDaArray : compromissos) {
 								%>
 
 
 
 								<tr>
-									<td scope="row"> <%= compromisso.getCod_compromisso()%> codigo do compromisso</td>
-									<td>
-											<%= compromisso.getTitulo()%>
-											titulo compromisso
+									<td scope="row"><%=compromissoDaArray.getCod_compromisso()%>
 									</td>
+									<td><a href="#"><%=compromissoDaArray.getTitulo()%></a></td>
+									<td><%=compromissoDaArray.getData()%></td>
 									<td>
-									<!-- <%= compromisso.getData()%> a <%= compromisso.getDataFim()%> -->
-									data começo e fim </td>
-									<td>
-											
-											<%= compromisso.getStatus()%>Grau de importancia
+										<%
+											String status = "";
+													if (compromissoDaArray.getStatus() == 0) {
+														status = "Em andamento";
+													} else if (compromissoDaArray.getStatus() == 1) {
+														status = "Cancelado";
+													} else {
+														status = "Concluído";
+													}
+										%> <%=status%>
 									</td>
+									<td></td>
 
 								</tr>
 
 
 								<%
-								//	}
+									}
 								%>
 
 
@@ -124,8 +143,8 @@
 		</div>
 
 	</div>
-	
-	
+
+
 	<script src="js/bootstrap.js"></script>
 </body>
 </html>
