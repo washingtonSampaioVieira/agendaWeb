@@ -12,43 +12,42 @@ import br.senai.sp.cfp127.dao.CompromissoDao;
 import br.senai.sp.cfp127.model.Compromisso;
 import br.senai.sp.cfp127.model.Usuario;
 
-
-@WebServlet(description = "cadastra um compromisso no banco.", urlPatterns = { "/CadastrarCompromissoServlet" })
-public class CadastrarCompromissoServlet extends HttpServlet {
+/**
+ * Servlet implementation class AtualizarCompromissoServlet
+ */
+@WebServlet("/AtualizarCompromissoServlet")
+public class AtualizarCompromissoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	public  CadastrarCompromissoServlet() {
-		super();
-	}
-   
-	
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public AtualizarCompromissoServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		Compromisso c = new Compromisso();
 		c.setTitulo(request.getParameter("titulo"));
+		c.setCod_compromisso(Integer.parseInt(request.getParameter("txt-cod")));
 		c.setData(request.getParameter("data"));
 		c.setHoraFim( request.getParameter("horaFim"));
 		c.setHoraInicio(request.getParameter("horaInicio"));
 		c.setPrioridade(Integer.parseInt(request.getParameter("prioridade")));
 		c.setDescricao(request.getParameter("descricao"));
+		CompromissoDao dao = new CompromissoDao();
 		
-		Usuario u = new Usuario();
-		u = (Usuario) request.getSession().getAttribute("usuario");
-		c.setUsuario(u );
-		
-		
-		
-		
-		HttpSession sessao = request.getSession();
-		sessao.setAttribute("compromisso", c);
-		
-		CompromissoDao  compromissoDao= new CompromissoDao();
-		if(compromissoDao.gravar(c)) {
+		if(dao.atulizar(c)) {
 			response.sendRedirect("compromissos.jsp");
 		}else {
-			response.sendRedirect("criarCompromisso.jsp");
+			response.sendRedirect("editarCompromisso.jsp");
 		}
-		
-		
+
 	}
 
 }

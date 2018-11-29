@@ -74,7 +74,7 @@
 					</div>
 
 					<div class="card-body">
-						<table class="table table-hover ">
+						<table class="table table-hover table-sm">
 						<form id="buscar" action="FiltroDeCompromissosServlet" method="post">
 							<select name="filtro">
 								<option value="0">Em andamento</option>
@@ -104,9 +104,9 @@
 
 
 								<tr>
-									<td scope="row"><%=compromissoDaArray.getCod_compromisso()%>
+									<td scope="row"><%=  String.format("%06d",compromissoDaArray.getCod_compromisso())%>
 									</td>
-									<td><a href="#"><%=compromissoDaArray.getTitulo()%></a></td>
+									<td><a href="BuscarCompromissoServlet?cod_compromisso=<%= compromissoDaArray.getCod_compromisso()%>"><%=compromissoDaArray.getTitulo()%></a></td>
 									<td><%=compromissoDaArray.getData()%></td>
 									<td>
 										<%
@@ -120,7 +120,11 @@
 													}
 										%> <%=status%>
 									</td>
-									<td></td>
+									<td>
+										<a href="MudarStatusServlet?cod_compromisso=<%=compromissoDaArray.getCod_compromisso()%>&status=1"><img src="imagens/x.png" whidth="25px;" heigth="25px;"></a>&nbsp
+										<a href="MudarStatusServlet?cod_compromisso=<%=compromissoDaArray.getCod_compromisso()%>&status=0"><img src="imagens/y.png" whidth="25px;" heigth="25px;"></a>&nbsp
+										<a href="MudarStatusServlet?cod_compromisso=<%=compromissoDaArray.getCod_compromisso()%>&status=2"><img src="imagens/emAndamento.png" whidth="25px;" heigth="25px;"></a>&nbsp
+									</td>
 
 								</tr>
 

@@ -37,30 +37,113 @@ public class CompromissoDao {
 
 		return compromissos;
 	}
-	public ArrayList<Compromisso> getCompromissosFiltro(String sql) {
-		ArrayList<Compromisso> compromissos = new ArrayList<>();
+	
+	
+	
+	public Compromisso getCompromisso(int cod_compromisso) {
+		Compromisso c = new Compromisso();
 
+		String sql = "SELECT * FROM tbl_compromisso "+"WHERE cod_compromisso ="+cod_compromisso;
 		try {
 			stm = Conexao.getConexao().prepareStatement(sql);
 			rs = stm.executeQuery();
 
-			while (rs.next()) {
-				this.compromisso = new Compromisso();
-				this.compromisso.setCod_compromisso(rs.getInt("cod_compromisso"));
-				this.compromisso.setTitulo(rs.getString("titulo"));
-				this.compromisso.setData(rs.getString("data"));
-				this.compromisso.setStatus(rs.getInt("status"));
-				this.compromisso.setPrioridade(rs.getInt("prioridade"));
+				if(rs.next()) {
+				c.setCod_compromisso(rs.getInt("cod_compromisso"));
+				c.setTitulo(rs.getString("titulo"));
+				c.setData(rs.getString("data"));
+				c.setDescricao(rs.getString("descricao"));
+				c.setHoraInicio(rs.getString("horaInicio"));
+				c.setHoraFim(rs.getString("horaFim"));
+				c.setStatus(rs.getInt("status"));
+				c.setPrioridade(rs.getInt("prioridade"));
 	
-				compromissos.add(this.compromisso);
-			}
+				}
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return c;
 
-		return compromissos;
+		
 	}
+	
+	
+	
+	public boolean atulizar(Compromisso c) {
+		String sql="UPDATE tbl_compromisso SET titulo=?, data=?, horaInicio=?, descricao=?, prioridade=?, horaFim=? WHERE cod_compromisso = ?";
+		
+		try{
+			stm=Conexao.getConexao().prepareStatement(sql);
+			stm.setString(1, c.getTitulo());
+			stm.setString(2, c.getData());
+			stm.setString(3, c.getHoraInicio());
+			stm.setString(4, c.getDescricao());
+			stm.setInt(5, c.getPrioridade());
+			stm.setString(6, c.getHoraFim());
+			stm.setInt(7, c.getCod_compromisso());
+			stm.execute();
+			
+			return true;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		
+	}
+	
+	
+	
+	public boolean atulizarStatus(int cod, int status) {
+		String sql="UPDATE tbl_compromisso SET status=? WHERE cod_compromisso = ?";
+		
+		try{
+			stm=Conexao.getConexao().prepareStatement(sql);
+			stm.setInt(1,status);
+			stm.setInt(2, cod);
+		
+			stm.execute();
+			
+			return true;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+//	public ArrayList<Compromisso> getCompromissosFiltro(String sql) {
+//		ArrayList<Compromisso> compromissos = new ArrayList<>();
+//
+//		try {
+//			stm = Conexao.getConexao().prepareStatement(sql);
+//			rs = stm.executeQuery();
+//
+//			while (rs.next()) {
+//				this.compromisso = new Compromisso();
+//				this.compromisso.setCod_compromisso(rs.getInt("cod_compromisso"));
+//				this.compromisso.setTitulo(rs.getString("titulo"));
+//				this.compromisso.setData(rs.getString("data"));
+//				this.compromisso.setStatus(rs.getInt("status"));
+//				this.compromisso.setPrioridade(rs.getInt("prioridade"));
+//	
+//				compromissos.add(this.compromisso);
+//			}
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//
+//		return compromissos;
+//	}
 	
 	public boolean gravar (Compromisso c) {
 		String sql="INSERT INTO tbl_compromisso "

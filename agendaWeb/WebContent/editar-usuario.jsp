@@ -49,7 +49,7 @@
 					<div class="card-header bg-info text-white">
 						<!-- cabeçalho -->
 						<h5>
-							<img src="imagens/editar.png">Editar usuario
+							<img src="imagens/editar.png">Editar Compromisso
 						</h5>
 					</div>
 
@@ -58,7 +58,7 @@
 
 						<div class="card">
 							<form id="usuario" action="UsuarioServlet" method="post">
-								<div class="card-header">Edite</div>
+								<div class="card-header">Edite seu compromisso</div>
 								<div class="card-body">
 
 									<div class="alert-warning text-danger">
@@ -71,7 +71,7 @@
 										<!-- linha 01 -->
 										<div class="col-md-12">
 											<!-- coluna total/12 -->
-											<h6 class="text-primary mb-4">Dados Pessoais:</h6>
+											<h6 class="text-primary mb-4">Dados:</h6>
 										</div>
 									</div>
 

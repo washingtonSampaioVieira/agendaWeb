@@ -1,3 +1,5 @@
+<%@page import="br.senai.sp.cfp127.dao.CompromissoDao"%>
+<%@page import="br.senai.sp.cfp127.model.Compromisso"%>
 <%@page import="br.senai.sp.cfp127.model.Contato"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="br.senai.sp.cfp127.dao.ContatoDao"%>
@@ -8,11 +10,6 @@
 <%
 	Usuario usuario = new Usuario();
 	usuario = (Usuario) session.getAttribute("usuario");
-
-	ContatoDao dao = new ContatoDao();
-	ArrayList<Contato> contatos = new ArrayList<>();
-
-	contatos = dao.getContatos(usuario.getCod());
 
 	if (usuario == null) {
 		response.sendRedirect("login.html");
@@ -25,7 +22,7 @@
 <head>
 <link rel="stylesheet" href="css/bootstrap.css">
 <meta charset="utf-8">
-<title>Novo usuário</title>
+<title>Compromissos</title>
 </head>
 <body class="bg-dark">
 	<div class="bg-info text-white">
@@ -56,67 +53,34 @@
 			</div>
 			<div class="col-md-8">
 				<div class="card">
-					<div class="card-header bg-info text-white ">
+					<div class="card-header bg-danger  text-white ">
 						<!-- cabeçalho -->
 						<div class="row">
-							<div class="col-md-9">
-								<h5>Meus contatos</h5>
-							</div>
-							<div class="col-md-3">
-								<a href="CriarContato.jsp" class="btn btn-success">Novo
-									contato</a>
+							<div class="col-md-12">
+								<h4>Deseja Excluir</h4>
 							</div>
 						</div>
 					</div>
 
 					<div class="card-body">
-						<table class="table table-hover table-sm">
-							<thead class="bg-secondary text-white">
-								<tr>
+						<div class="alert alert-danger text-dark">
+							<h5>
+								O contato
+								<%=request.getParameter("cod_contato")%>
+								<%=request.getParameter("nome")%>
+								será excluido.
 
-									<th scope="col">Cód.</th>
-									<th scope="col">Nome</th>
-									<th scope="col">Email</th>
-									<th scope="col">&nbsp</th>
-								</tr>
-							</thead>
-							<tbody>
+							</h5>
+							<br>
+							<div class="font-weight text-primary">Obs. Está ação não
+								poderá ser desfeita.</div>
 
+						</div>
 
-								<%
-									for (Contato c : contatos) {
-								%>
-
-
-
-								<tr>
-									<td scope="row"><%= String.format("%06d", c.getCodContato()) %></td>
-									<td><a
-										href="ExibirContatoServlet?cod_contato=<%=c.getCodContato()%>">
-											<%=c.getNome()%>
-									</a></td>
-									<td><%=c.getEmail()%></td>
-									<td>
-									<a
-										href="confirmarExclusao.jsp?cod_contato=<%=c.getCodContato()%>&nome=<%=c.getNome()%>">
-											<img src="imagens/lixeira.png">
-									</a>
-									
-									
-									
-									
-									</td>
-
-								</tr>
-
-
-								<%
-									}
-								%>
-
-
-							</tbody>
-						</table>
+						<a href="contatos.jsp"><button class="btn btn-warning">Cancelar</button></a>
+					<a
+										href="ExcluirContatoServlet?cod_contato=<%=request.getParameter("cod_contato")%>"><button
+								class="btn btn-danger">Excluir</button></a>
 					</div>
 
 					<div class="card-footer">
@@ -128,8 +92,8 @@
 		</div>
 
 	</div>
-	
-	
+
+
 	<script src="js/bootstrap.js"></script>
 </body>
 </html>
