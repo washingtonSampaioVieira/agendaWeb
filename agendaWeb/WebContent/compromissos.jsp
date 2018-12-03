@@ -11,9 +11,18 @@
 	Usuario usuario = new Usuario();
 	usuario = (Usuario) session.getAttribute("usuario");
 
+	int status= 0;
+	
+	if(request.getParameter("status")!=null){
+		status = Integer.parseInt(request.getParameter("status"));
+	}
+	
+	
+	
+	
 	ArrayList<Compromisso> compromissos = new ArrayList<>();
 	CompromissoDao compromissoDao = new CompromissoDao();
-	compromissos = compromissoDao.getCompromissos(usuario.getCod());
+	compromissos = compromissoDao.getCompromissos(usuario.getCod(), status);
 
 	//compromisso = (Compromisso) session.getAttribute("compromisso");
 
@@ -75,11 +84,12 @@
 
 					<div class="card-body">
 						<table class="table table-hover table-sm">
-						<form id="buscar" action="FiltroDeCompromissosServlet" method="post">
-							<select name="filtro">
-								<option value="0">Em andamento</option>
-								<option value="1">Cancelado</option>
-								<option value="2">Concluido</option>
+						<form id="buscar" action="FiltroDeCompromissosServlet" method="post" >
+					
+							<select name="filtro" id="filtro" onchange="scriptStatus()">
+								<option value="0" <%= status==0? "selected":"" %>>Em andamento</option>
+								<option value="1" <%= status==1? "selected":"" %>>Cancelado</option>
+								<option value="2" <%= status==2? "selected":"" %>>Concluido</option>
 							</select>&nbsp
 							
 								<input type="button" value="buscar" name="btnFilto" id="btnFiltro">
@@ -90,7 +100,7 @@
 									<th scope="col">Cód.</th>
 									<th scope="col">Titulo</th>
 									<th scope="col">Data</th>
-									<th scope="col">Grau</th>
+									<th scope="col">Status</th>
 									<th scope="col">&nbsp</th>
 								</tr>
 							</thead>
@@ -110,20 +120,20 @@
 									<td><%=compromissoDaArray.getData()%></td>
 									<td>
 										<%
-											String status = "";
+											String status1 = "";
 													if (compromissoDaArray.getStatus() == 0) {
-														status = "Em andamento";
+														status1 = "Em andamento";
 													} else if (compromissoDaArray.getStatus() == 1) {
-														status = "Cancelado";
+														status1 = "Cancelado";
 													} else {
-														status = "Concluído";
+														status1 = "Concluído";
 													}
-										%> <%=status%>
+										%> <%=status1%>
 									</td>
 									<td>
-										<a href="MudarStatusServlet?cod_compromisso=<%=compromissoDaArray.getCod_compromisso()%>&status=1"><img src="imagens/x.png" whidth="25px;" heigth="25px;"></a>&nbsp
-										<a href="MudarStatusServlet?cod_compromisso=<%=compromissoDaArray.getCod_compromisso()%>&status=0"><img src="imagens/y.png" whidth="25px;" heigth="25px;"></a>&nbsp
-										<a href="MudarStatusServlet?cod_compromisso=<%=compromissoDaArray.getCod_compromisso()%>&status=2"><img src="imagens/emAndamento.png" whidth="25px;" heigth="25px;"></a>&nbsp
+										<a href="MudarStatusServlet?cod_compromisso=<%=compromissoDaArray.getCod_compromisso()%>&status=1"><img src="imagens/x.png" "></a>&nbsp
+										<a href="MudarStatusServlet?cod_compromisso=<%=compromissoDaArray.getCod_compromisso()%>&status=2"><img src="imagens/y.png" "></a>&nbsp
+										<a href="MudarStatusServlet?cod_compromisso=<%=compromissoDaArray.getCod_compromisso()%>&status=0"><img src="imagens/emAndamento.png"></a>&nbsp
 									</td>
 
 								</tr>
@@ -147,7 +157,21 @@
 		</div>
 
 	</div>
-
+	<script>
+	function scriptStatus(){
+	    var select = document.getElementById("filtro");
+	    
+	    if(select.value==0){
+	        window.location.href="compromissos.jsp?status=0";
+	    } else if(select.value==1){
+	        window.location.href="compromissos.jsp?status=1";
+	    }else{
+	        window.location.href="compromissos.jsp?status=2";
+	    }
+	    
+	}
+	
+	</script>
 
 	<script src="js/bootstrap.js"></script>
 </body>

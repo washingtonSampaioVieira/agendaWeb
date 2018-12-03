@@ -22,7 +22,6 @@ public class ContatoDao {
 			stm=Conexao.getConexao().prepareStatement(sql);
 			stm.setInt(1, codUsuario);
 			rs = stm.executeQuery();
-			
 			while(rs.next()) {
 				this.contato = new Contato();
 				this.contato.setCodContato(rs.getInt("cod_contato"));
@@ -35,6 +34,8 @@ public class ContatoDao {
 			
 		}catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			Conexao.fechasrConexao();
 		}
 		
 		return contatos ;
@@ -55,6 +56,8 @@ public class ContatoDao {
 		}catch(Exception e) {
 			e.printStackTrace();
 			return false;
+		}finally{
+			Conexao.fechasrConexao();
 		}
 	}
 	
@@ -83,11 +86,12 @@ public class ContatoDao {
 			stm.setString(4, c.getEndereco());
 			stm.setInt(5, c.getCodContato());
 			stm.execute();
-			
 			return true;
 		}catch(Exception e) {
 			e.printStackTrace();
 			return false;
+		}finally {
+			Conexao.fechasrConexao();
 		}
 		
 		
@@ -113,6 +117,8 @@ public class ContatoDao {
 			
 		}catch (Exception e) {
 			e.printStackTrace();
+		}finally{
+			Conexao.fechasrConexao();
 		}
 		
 		return c ;

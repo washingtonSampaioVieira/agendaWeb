@@ -30,7 +30,7 @@ public class MudarStatusServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int cod=Integer.parseInt( request.getParameter("cod_compromisso"));
 		int status =Integer.parseInt(request.getParameter("status"));
-		
+		System.out.println(status);
 		CompromissoDao dao = new CompromissoDao();
 		if(dao.atulizarStatus(cod, status)) {
 			response.sendRedirect("compromissos.jsp");

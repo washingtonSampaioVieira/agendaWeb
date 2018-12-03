@@ -37,12 +37,15 @@ public class UsuarioDao {
 			stm.setString(5, usuario.getDtNascimento());
 			
 			stm.execute(); //COMANDO PARA EXECUTAR
+		
 			
 			return true;
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 			return false;
+		}finally {
+			Conexao.fechasrConexao();
 		}
 		
 
@@ -63,12 +66,15 @@ public boolean atualizar() {
 			
 			stm.execute(); //COMANDO PARA EXECUTAR
 			
+			
 			return true;
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("ERRO NO ATUALIZAR");
 			return false;
+		}finally {
+			Conexao.fechasrConexao();
 		}
 		
 
@@ -86,6 +92,7 @@ public boolean atualizar() {
 			
 			rs = stm.executeQuery(); // COMANDO DE CONSULTA executeQuery;
 			
+			
 			if(rs.next()) {
 				this.usuario.setCod(rs.getInt("cod"));
 				this.usuario.setNome(rs.getString("nome"));
@@ -97,6 +104,8 @@ public boolean atualizar() {
 			
 		}catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			Conexao.fechasrConexao();
 		}
 		
 		return this.usuario;

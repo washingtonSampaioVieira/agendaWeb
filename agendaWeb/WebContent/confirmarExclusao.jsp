@@ -78,8 +78,7 @@
 						</div>
 
 						<a href="contatos.jsp"><button class="btn btn-warning">Cancelar</button></a>
-					<a
-										href="ExcluirContatoServlet?cod_contato=<%=request.getParameter("cod_contato")%>"><button
+					<a href="ExcluirContatoServlet?cod_contato=<%=request.getParameter("cod_contato")%>"><button
 								class="btn btn-danger">Excluir</button></a>
 					</div>
 

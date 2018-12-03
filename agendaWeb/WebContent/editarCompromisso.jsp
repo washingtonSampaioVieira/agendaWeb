@@ -98,7 +98,7 @@
 										</div>
 										<div class="col-md-5">
 											<!-- coluna 02 -->
-											<label for="txt-nascimento"> Data: </label> <input
+											<label for="data"> Data: </label> <input
 												class="form-control" type="date" name="data" id="data"
 												value="<%=compromisso.getData()%>">
 										</div>
@@ -162,6 +162,7 @@
 
 	</div>
 	<!-- <script src="js/validarContato.js"></script> -->
+	<script src="errosCompromisso.jsp"></script>
 </body>
 
 </html>

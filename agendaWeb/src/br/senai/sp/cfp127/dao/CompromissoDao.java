@@ -12,10 +12,10 @@ public class CompromissoDao {
 	private PreparedStatement stm;
 	private ResultSet rs;
 
-	public ArrayList<Compromisso> getCompromissos(int codUsuario) {
+	public ArrayList<Compromisso> getCompromissos(int codUsuario, int status) {
 		ArrayList<Compromisso> compromissos = new ArrayList<>();
 
-		String sql = "SELECT * FROM tbl_compromisso " + "WHERE cod_usuario =" +codUsuario;
+		String sql = "SELECT * FROM tbl_compromisso WHERE cod_usuario =" +codUsuario+" AND status="+status;
 		try {
 			stm = Conexao.getConexao().prepareStatement(sql);
 			rs = stm.executeQuery();
@@ -33,6 +33,37 @@ public class CompromissoDao {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			Conexao.fechasrConexao();
+		}
+
+		return compromissos;
+	}
+	
+	public ArrayList<Compromisso> getCompromissos3(int codUsuario) {
+		ArrayList<Compromisso> compromissos = new ArrayList<>();
+
+		String sql = "SELECT * FROM tbl_compromisso WHERE cod_usuario =" +codUsuario+" AND status= 0 ORDER BY data LIMIT 3";
+		try {
+			stm = Conexao.getConexao().prepareStatement(sql);
+			rs = stm.executeQuery();
+
+			while (rs.next()) {
+				this.compromisso = new Compromisso();
+				this.compromisso.setCod_compromisso(rs.getInt("cod_compromisso"));
+				this.compromisso.setTitulo(rs.getString("titulo"));
+				this.compromisso.setData(rs.getString("data"));
+				this.compromisso.setStatus(rs.getInt("status"));
+				this.compromisso.setDescricao(rs.getString("descricao"));
+				this.compromisso.setPrioridade(rs.getInt("prioridade"));
+	
+				compromissos.add(this.compromisso);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			Conexao.fechasrConexao();
 		}
 
 		return compromissos;
@@ -63,6 +94,8 @@ public class CompromissoDao {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			Conexao.fechasrConexao();
 		}
 		return c;
 
@@ -89,6 +122,8 @@ public class CompromissoDao {
 		}catch(Exception e) {
 			e.printStackTrace();
 			return false;
+		}finally {
+			Conexao.fechasrConexao();
 		}
 		
 		
@@ -110,6 +145,8 @@ public class CompromissoDao {
 		}catch(Exception e) {
 			e.printStackTrace();
 			return false;
+		}finally {
+			Conexao.fechasrConexao();
 		}
 		
 		
@@ -168,6 +205,8 @@ public class CompromissoDao {
 					System.out.println("Erro no gravar compromisso.");
 					e.printStackTrace();
 					return false;
+				}finally {
+					Conexao.fechasrConexao();
 				}
 	
 		

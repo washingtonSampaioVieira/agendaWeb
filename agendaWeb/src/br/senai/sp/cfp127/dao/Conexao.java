@@ -2,6 +2,7 @@ package br.senai.sp.cfp127.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.TimeZone;
 
 public class Conexao {
@@ -22,5 +23,13 @@ public class Conexao {
 		}
 		
 		return con;
+	}
+	
+	public static void fechasrConexao() {
+		try {
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
