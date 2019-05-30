@@ -1,2 +1,2 @@
 # java
-repositorio das aulas de java do senai
+Projeto didatico. desenvolvido em Java.
